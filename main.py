@@ -1,5 +1,6 @@
 import numpy as np
 from fonction1 import pageRankLinear #j'importe ma fonction pageRankLinear vous devrez faire la même
+from fonction2 import pageRankPower
 
 def load_adjacency_matrice(filename):
     return np.genfromtxt(filename, delimiter=",") #no.genfromtxt permet de mettre en tableau la matrice
