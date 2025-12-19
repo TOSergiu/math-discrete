@@ -87,7 +87,4 @@ def pageRankPower(A: np.array, alpha: float, v: np.array, eps=1e-10):
     print(first_three)
     print("================================================================================================================================================")
     
-    print("Résultat final:")
-    print(x)
-
-    return x 
+    return x
