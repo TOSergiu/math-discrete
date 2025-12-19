@@ -27,7 +27,7 @@ def pageRankLinear(A: np.matrix, alpha: float, v: np.array):
 
     #construction du système linéaire
     I = np.eye(n) #créer matrice taille n sur n
-    M = I - alpha * P.T #formule dans les slides
+    M = I - alpha * P #formule dans les slides
     b = (1 - alpha) * v #pareil formule slides
 
     #on résoud avec np
