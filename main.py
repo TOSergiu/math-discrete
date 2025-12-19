@@ -1,5 +1,5 @@
 import numpy as np
-from fonction import pageRankLinear #j'importe ma fonction pageRankLinear vous devrez faire la même
+from fonction import pageRankLinear, pageRankPower #j'importe ma fonction pageRankLinear vous devrez faire la même
 
 def load_adjacency_matrice(filename):
     return np.genfromtxt(filename, delimiter=",") #no.genfromtxt permet de mettre en tableau la matrice
@@ -19,11 +19,33 @@ def main():
     print("Matrice d'adjacence A :")
     print(A) #pour imprimer la matrice donnée comme demandé dans les consignes
 
+    print("--------------------------------------------")
+
     print("Vecteur de personnalisation v :")
     print(v) #pour imprimer le vecteur de personnalisation comme demandé dans les consignes
+
+    print("--------------------------------------------")
+
     print("Somme de v :", np.sum(v))
 
     x = pageRankLinear(A, alpha, v) #x = vecteur pagerank quand il est calculé
+
+    print("--------------------------------------------")
+
+    print("Méthode Power:")
+    x_pow, erreur = pageRankPower(A, alpha, v)
+
+    print("Résultat power methode")
+    print(x_pow)
+
+    print("--------------------------------------------")
+
+    print("Somme de x_pow :", np.sum(x_pow))
+
+    print("--------------------------------------------")
+
+    for k, r in enumerate(erreur): #Affiche le'erreur à chaque pas 
+        print(f"Step {k}: error = {r}")
 
     print("Somme de x :", np.sum(x)) #somme des valeurs calculée (1)
 
