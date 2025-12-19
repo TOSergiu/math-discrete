@@ -61,27 +61,30 @@ def pageRankPower(A: np.array, alpha: float, v: np.array, eps=1e-10):
 
     x = normalize_vector(v.copy())
 
-    print(A)
+    print("Transition matrix P:")
     print(P)
+    print("================================================================================================================================================")
+
+    print("Google matrix G:")
     print(G)
-    print(x)
+    print("================================================================================================================================================")
 
     first_three = []
-    erreur = []
 
     for i in range(1000000): # 1000000 ici est le plafond afin que la fonction ne continue pas indéfiniment 
         x2 = G.dot(x)   
         x2 = normalize_vector(x2)
         r = np.linalg.norm(x2 - x, 1)
-        erreur.append(r)
         x = x2
 
         if i <= 3:
-            first_three.append(x.copy())
+            first_three.append(x2)
 
         if r < eps: #On s'arrête quand le x - x2 est plus petit qu'epsilon
             break
         
+    print("trois premières itérations de la power method")
     print(first_three)
+    print("================================================================================================================================================")
     
-    return x, erreur
+    return x
