@@ -1,5 +1,5 @@
 import numpy as np
-from fonction import pageRankLinear, pageRankPower #j'importe ma fonction pageRankLinear vous devrez faire la même
+from fonction import pageRankLinear, pageRankPower, randomWalk #j'importe ma fonction pageRankLinear vous devrez faire la même
 
 np.set_printoptions(
     precision=4,
@@ -51,6 +51,15 @@ def main():
     print("================================================================================================================================================")
 
     print("Somme de x :", np.sum(x)) #somme des valeurs calculée (1)
+
+    print("================================================================================================================================================")
+
+    print("Méthode RandomWalk:")
+    x_rw = randomWalk(A, alpha, v)
+    print("Somme de x_rw :", np.sum(x_rw))
+
+    print("================================================================================================================================================")
+
 
 if __name__ == "__main__":
     main()

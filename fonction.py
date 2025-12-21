@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def pageRankLinear(A: np.matrix, alpha: float, v: np.array):
     """
@@ -87,4 +88,51 @@ def pageRankPower(A: np.array, alpha: float, v: np.array, eps=1e-10):
     print(first_three)
     print("================================================================================================================================================")
     
+    return x
+
+def randomWalk(A, alpha=0.9, v=None):
+    """
+    – Input : Une matrice d’adjacence A d’un graphe dirigé, pondéré et régulier G, un vecteur de personnalisation v, ainsi qu’un paramètre de téléportation α compris entre 0
+    et 1 (0.9 par défaut et pour les résultats à présenter).
+    – Output : Un vecteur x contenant les scores d’importance des noeuds ordonnés dans
+    le même ordre que les lignes de la matrice d’adjacence (représentant les noeuds).
+    """
+    n = A.shape[0]
+    erreurs = []
+    # La matrice de transition P
+    P = np.zeros((n, n))
+    for j in range(n):
+        col_sum = np.sum(A[:, j])
+        if col_sum != 0:
+            P[:, j] = A[:, j] / col_sum
+        else:
+            P[:, j] = 1.0 / n
+    # La matrice de Google
+    G = alpha * P + (1.0 - alpha) * np.outer(v, np.ones(n))
+
+    visites = np.zeros(n)
+
+    # noeud initial
+    current = 0
+
+    for k in range(1, 10000 + 1):
+        visites[current] += 1
+        p_rw = visites / k
+        # calcul de l'erreur moyenne
+        ek = (1 / n) * np.sum(np.abs(p_rw - v))
+        erreurs.append(ek)
+
+        current = np.random.choice(n, p=G[:, current])
+
+    # estimation du score
+    x = visites / visites.sum()
+    print("PageRank (méthode marche aléatoire) :")
+    print(x)
+
+    plt.plot(range(1, 10000 + 1), erreurs)
+    plt.xlabel("Pas de temps k")
+    plt.ylabel("Erreur moyenne ε(k)")
+    plt.title("Évolution de l'erreur entre PageRank exact et marche aléatoire")
+    plt.grid(True)
+    plt.show()
     return x
